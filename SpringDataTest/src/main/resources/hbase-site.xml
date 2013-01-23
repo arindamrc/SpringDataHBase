@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!--
+  © 2012 Infosys Limited, Bangalore, India. All Rights Reserved. 
+  Version:TODO
+  
+  Except for any open source software components embedded in this Infosys proprietary software program (“Program”), 
+  this Program is protected by copyright laws, international treaties and other pending or existing intellectual property rights in India, 
+  the United States and other countries. Except as expressly permitted, any unauthorized reproduction, storage, 
+  transmission in any form or by any means (including without limitation electronic, mechanical, printing, photocopying, recording or otherwise), 
+  or any distribution of this Program, or any portion of it, may result in severe civil and criminal penalties, and will be prosecuted to the 
+  maximum extent possible under the law.
+  @since 2012
+-->
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+
+        <property>
+                <name>hbase.rootdir</name>
+                <value>hdfs://10.68.210.45:54310/hbaseData</value>
+                <!-- <value>hdfs://10.155.100.3:54310/hbase</value> -->
+        </property>
+        
+        <property>
+        <name>hbase.master</name>
+        <value>10.68.210.71:60000</value>
+        </property>
+
+        <property>
+                <name>hbase.master.port</name>
+                <value>60010</value>
+        </property>
+
+        <property>
+                <name>hbase.master.info.port</name>
+                <value>60011</value>
+        </property>
+
+        <property>
+                <name>hbase.regionserver.port</name>
+                <value>60020</value>
+        </property>
+
+        <property>
+                <name>hbase.regionserver.info.port</name>
+                <value>60030</value>
+        </property>
+
+        <property>
+                <name>hbase.cluster.distributed</name>
+                <value>true</value>
+        </property>
+
+        <property>
+                <name>hbase.client.scanner.caching</name>
+                <value>10</value>
+        </property>
+
+        <property>
+                <name>zookeeper.znode.parent</name>
+                <value>/hbase</value>
+        </property>
+        
+        <property>
+                <name>hbase.zookeeper.property.maxClientCnxns</name>
+                <value>20</value>
+        </property>
+
+        <property>
+                <name>hbase.zookeeper.quorum</name>
+                <value>10.68.210.33,10.68.210.71,10.68.210.58</value>
+                <!-- <value>10.155.100.139</value> -->
+        </property>
+        <property>
+	      <name>hbase.zookeeper.property.clientPort</name>
+	      <value>2181</value>
+	      <description>Property from ZooKeeper's config zoo.cfg.
+	      The port at which the clients will connect.
+	      </description>
+ </property>
+
+</configuration>

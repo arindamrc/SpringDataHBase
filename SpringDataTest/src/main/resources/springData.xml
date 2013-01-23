@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:hdp="http://www.springframework.org/schema/hadoop" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/hadoop http://www.springframework.org/schema/hadoop/spring-hadoop.xsd">
+
+	<hdp:configuration resources="classpath:/hbase-site.xml"></hdp:configuration>
+	<hdp:hbase-configuration configuration-ref="hadoopConfiguration" />
+	
+	<bean id="hTemplate" class="org.springframework.data.hadoop.hbase.HbaseTemplate"
+		p:configuration-ref="hbaseConfiguration" />
+		
+	<bean id="springDataDaoSupport" class="com.infy.hbase.dao.support.SpringDataDaoSupport">
+		<property name="hBaseTemplate" ref="hTemplate"></property>
+	</bean>
+	
+	<bean id="ahamDaoSupport" class="com.infy.hbase.dao.support.AhamDaoSupport">
+		<property name="ahamHBaseTemplate" ref="hbaseTemplate"></property>
+	</bean>
+	
+	<!-- <bean id="hBaseDao" class="com.infy.hbase.dao.impl.HBaseDaoSpringDataImpl">
+		<property name="daoSupport" ref="hbaseDaoSupport"></property>
+	</bean> -->
+
+	<bean id="replenishmentDao" class="com.infy.hbase.dao.impl.HBaseDaoSpringDataImpl">
+		<constructor-arg index="0">
+			<value>com.infy.hbase.entity.ReplenishmentEntity</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>java.lang.String</value>
+		</constructor-arg>
+		<property name="daoSupport" ref="springDataDaoSupport"></property>
+	</bean>
+
+	<bean id="userActivityDao" class="com.infy.hbase.dao.impl.HBaseDaoSpringDataImpl">
+		<constructor-arg index="0">
+			<value>com.infy.hbase.entity.UserActivityEntity</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>java.lang.String</value>
+		</constructor-arg>
+		<property name="daoSupport" ref="springDataDaoSupport"></property>
+	</bean>
+
+	<bean id="productInfoDao" class="com.infy.hbase.dao.impl.HBaseDaoSpringDataImpl">
+		<constructor-arg index="0">
+			<value>com.infy.hbase.entity.Product</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>java.lang.String</value>
+		</constructor-arg>
+		<property name="daoSupport" ref="ahamDaoSupport"></property>
+	</bean>
+
+	<!-- Added for Aham HBaseTemplate connections -->
+
+	<bean id="hbaseTemplate" class="com.infy.hbase.utilities.HBaseTemplate"
+		factory-method="getInstance">
+		<!-- >constructor-arg ref="hTablePool"/ -->
+		<property name="hTablePool" ref="hTablePool"></property>
+	</bean>
+
+	<bean id="hbaseConfiguration" class="com.infy.hbase.utilities.HBaseConfigurationFactoryBean">
+		<property name="hbaseProperties">
+			<props>
+				<!-- hbase.zookeeper.quorum must be specified. Other properties are optional -->
+				<!-- <prop key="hbase.zookeeper.quorum">${hbase.zookeeper.quorum}</prop> -->
+				<!-- <prop key="hbase.zookeeper.quorum">10.155.100.139,10.155.100.143,10.155.100.144</prop> -->
+				<prop key="hbase.zookeeper.quorum">10.68.210.71,10.68.210.33</prop>	<!-- ,10.68.210.58 -->
+
+			</props>
+		</property>
+	</bean>
+
+	<bean id="hTablePool" class="org.apache.hadoop.hbase.client.HTablePool">
+		<constructor-arg ref="hbaseConfiguration" />
+		<!-- <constructor-arg value="${hbase.htable.pool.size}"/> -->
+		<constructor-arg value="20" />
+	</bean>
+
+	<!-- end for Aham HBaseTemplate connections -->
+	
+</beans>

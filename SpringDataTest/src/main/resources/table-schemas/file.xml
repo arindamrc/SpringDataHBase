@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><table tableName="REPLENISHMENT_DETAILS">
+  <columnFamilies class="list">
+    <columnFamily mapToEntity="false" name="REPLENISHMENT_CONFIGURATION">
+      <tableName>REPLENISHMENT_DETAILS</tableName>
+      <maxVersions>3</maxVersions>
+      <inMemory>false</inMemory>
+      <blockCacheEnabled>true</blockCacheEnabled>
+      <timeToLive>2147483647</timeToLive>
+      <compressionType>COMPRESSION</compressionType>
+      <bloomFilter>BLOOMFILTER</bloomFilter>
+    </columnFamily>
+  </columnFamilies>
+</table>
