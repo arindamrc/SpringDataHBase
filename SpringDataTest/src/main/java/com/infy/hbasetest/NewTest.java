@@ -82,7 +82,7 @@ public class NewTest {
 		// new NewTest().testDaoSupport1();
 //		new NewTest().testGenericDaoSupport1();
 //		 new NewTest().testGenericDaoSupport2();
-//		new NewTest().testGenericDaoSupport3();
+		new NewTest().testGenericDaoSupport3();
 		 new NewTest().testAhamTables();
 	}
 
